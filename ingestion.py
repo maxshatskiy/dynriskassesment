@@ -22,10 +22,11 @@ def merge_multiple_dataframe():
 
     date_time = datetime.now()
     date_time_str = str(date_time.year)+'/'+str(date_time.month)+ '/'+str(date_time.day)
-    information_about_data = [input_folder_path, csv_filenames, date_time_str]
+    #information_about_data = [input_folder_path, *csv_filenames, date_time_str]
+
     output_file = open(os.path.join(output_folder_path,"ingestedfiles.txt"),'w')
-    for item in information_about_data:
-        output_file.write(str(item)+"\t")
+    for item in csv_filenames:
+        output_file.write(str(item)+"\n")
     output_file.close()
 
 
