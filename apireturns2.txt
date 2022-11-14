@@ -104,7 +104,7 @@ summary stats: [
   0.0
 ]
 
-diagnostics: execution time [ingestion, training]: [0.38781870000093477, 1.0009490000011283]
+diagnostics: execution time [ingestion, training]: [0.38211690000025555, 0.9988980999987689]
 outdated packages: 
 Package            Version Latest  Type
 ------------------ ------- ------- -----

@@ -14,15 +14,17 @@ with open('config.json','r') as f:
 
 dataset_csv_path = os.path.join(config['output_folder_path']) 
 test_data_path = os.path.join(config['test_data_path']) 
-
+output_model_path = os.path.join(config['output_model_path'])
 
 #################Function for model scoring
-def score_model():
+def score_model(model_path, test_data_path, test_data):
     #this function should take a trained model, load test data, and calculate an F1 score for the model relative to the test data
     #it should write the result to the latestscore.txt file
-    file = open(os.path.join('practicemodels','trainedmodel.pkl'),'rb')
+    file = open(os.path.join(model_path,'trainedmodel.pkl'),'rb')
     model = pickle.load(file)
-    test_data = pd.read_csv(os.path.join(test_data_path,"testdata.csv"))
+
+    test_data = pd.read_csv(os.path.join(test_data_path,test_data))
+
     X_test = test_data[["lastmonth_activity","lastyear_activity","number_of_employees"]]
     y_test = test_data["exited"]
     y_pred = model.predict(X_test)
@@ -36,6 +38,6 @@ def score_model():
 
 if __name__=="__main__":
 
-    score_model()
+    score_model(model_path = output_model_path, test_data_path = test_data_path, test_data="testdata.csv")
 
 

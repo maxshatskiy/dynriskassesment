@@ -29,28 +29,32 @@ for file in filenames:
 ##################Deciding whether to proceed, part 1
 #if you found new data, you should proceed. otherwise, do end the process here
 if not csv_filenames:
-    break
+    print('Exit since no new files to ingest')
+    exit()
 else:
     pass
 ##################Checking for model drift
 #check whether the score from the deployed model is different from the score from the model that uses the newest ingested data
-training.train_model()
-f1score_new_model = scoring.score_model()
+f1score_new_model = scoring.score_model(prod_deployment_path, test_data_path="ingesteddata", test_data="finaldata.txt")
 with open(os.path.join(prod_deployment_path,'latestscore.txt'),'r') as f:
     lines = f.readline()
 f.close()
 
 ##################Deciding whether to proceed, part 2
 #if you found model drift, you should proceed. otherwise, do end the process here
+print('old model score {}'.format(round(float(lines), 3)))
+print('new model score {}'.format(round(f1score_new_model, 3)))
+
 if round(float(lines), 3) == round(f1score_new_model, 3):
-    break
+    print('Exit since no model drift was found')
+    exit()
 else:
     ##################Re-deployment
     deployment.store_model_into_pickle()
 ##################Diagnostics and reporting
 #run diagnostics.py and reporting.py for the re-deployed model
 os.system('python diagnostics.py')
-reporting.model_predictions(test_dataset_location)
+reporting.model_predictions(test_data_path, test_data="testdata.csv")
 os.system('python apicalls.py')
 
 

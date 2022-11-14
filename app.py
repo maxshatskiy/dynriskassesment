@@ -26,13 +26,16 @@ prediction_model = None
 @app.route("/prediction", methods=['POST','OPTIONS'])
 def predict():
     dataset_location = request.get_json(force=True)
-    y_pred = model_predictions(dataset_location['datasetlocation'])
+    #y_pred = model_predictions(dataset_location['datasetlocation'])
+    y_pred = model_predictions(dataset_location['datasetfolder'], dataset_location['dataset'])
     return str(y_pred)
 
 #######################Scoring Endpoint
 @app.route("/scoring", methods=['GET','OPTIONS'])
 def scoring():
-    f1score = score_model()
+    parameters = request.get_json(force=True)
+    #f1score = score_model()
+    f1score = score_model(model_path = parameters['output_model_path'], test_data_path = parameters['test_data_path'], test_data=parameters['dataset'])
     return str(f1score)
 
 #######################Summary Statistics Endpoint

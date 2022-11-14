@@ -15,12 +15,12 @@ dataset_csv_path = os.path.join(config['output_folder_path'])
 test_data_path = os.path.join(config['test_data_path']) 
 
 ##################Function to get model predictions
-def model_predictions(test_data_path):
+def model_predictions(test_data_path, test_data):
     #read the deployed model and a test dataset, calculate predictions
     file = open(os.path.join('production_deployment','trainedmodel.pkl'),'rb')
     model = pickle.load(file)
 
-    test_data = pd.read_csv(os.path.join(test_data_path,"testdata.csv"))
+    test_data = pd.read_csv(os.path.join(test_data_path,test_data))
     X_test = test_data[["lastmonth_activity","lastyear_activity","number_of_employees"]]
     y_pred = model.predict(X_test)
 
@@ -65,7 +65,7 @@ def outdated_packages_list():
     return outdated
 
 if __name__ == '__main__':
-    model_predictions(test_data_path)
+    model_predictions(test_data_path, test_data = "testdata.csv")
     dataframe_summary()
     execution_time()
     outdated_packages_list()
