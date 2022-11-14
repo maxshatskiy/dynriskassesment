@@ -51,6 +51,7 @@ if round(float(lines), 3) == round(f1score_new_model, 3):
     exit()
 else:
     ##################Re-deployment
+
     deployment.store_model_into_pickle()
 ##################Diagnostics and reporting
 #run diagnostics.py and reporting.py for the re-deployed model
