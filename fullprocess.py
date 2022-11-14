@@ -15,10 +15,11 @@ with open('config.json','r') as f:
 ##################Check and read new data
 #first, read ingestedfiles.txt
 dataset_csv_path = os.path.join(config['input_folder_path'])
+ingested_data_path = os.path.join(config['output_folder_path'])
 test_dataset_location = os.path.join(config['test_data_path'])
 prod_deployment_path = config['prod_deployment_path']
 
-df = pd.read_csv(os.path.join(prod_deployment_path,'ingestedfiles.txt'), header=None, sep='\t')
+df = pd.read_csv(os.path.join(ingested_data_path,'ingestedfiles.txt'), header=None, sep='\t')
 ingesteddata_list = list(df.loc[:,0])
 #second, determine whether the source data folder has files that aren't listed in ingestedfiles.txt
 filenames = os.listdir(dataset_csv_path)
@@ -54,7 +55,7 @@ else:
 ##################Diagnostics and reporting
 #run diagnostics.py and reporting.py for the re-deployed model
 os.system('python diagnostics.py')
-reporting.model_predictions(test_data_path, test_data="testdata.csv")
+reporting.model_predictions(test_dataset_location, test_data="testdata.csv")
 os.system('python apicalls.py')
 
 

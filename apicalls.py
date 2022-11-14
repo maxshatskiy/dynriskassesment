@@ -21,7 +21,7 @@ response4 = requests.get('http://127.0.0.1:8000/diagnostics').text
 #combine all API responses
 responses = 'prediction: '+response1+'\n'+'scoring: '+response2+'\nsummary stats: '+response3+'\ndiagnostics: '+response4
 #write the responses to your workspace
-with open('apireturns.txt', 'w') as f:
+with open('apireturns2.txt', 'w') as f:
     f.write(responses)
 f.close()
 

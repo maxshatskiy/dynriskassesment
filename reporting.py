@@ -26,7 +26,7 @@ def score_model(test_data_path, test_data):
     y_pred = model_predictions(test_data_path, test_data)
     metrics.ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     #plt.show()
-    plt.savefig(os.path.join(dataset_csv_path, "confusionmatrix.png"))
+    plt.savefig(os.path.join(dataset_csv_path, "confusionmatrix2.png"))
 
 if __name__ == '__main__':
     score_model(test_data_path, test_data="testdata.csv")
